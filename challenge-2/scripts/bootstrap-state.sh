@@ -4,8 +4,8 @@ set -euo pipefail
 ENVIRONMENT="${1:-}"
 APP_ID="ci36432"
 LOCATION="eastus"
-RG_NAME="rg-tfstate-${APP_ID}"
-SA_NAME="sttfstate${APP_ID}"
+RG_NAME="rg-tfstate-${ENVIRONMENT}-${APP_ID}"
+SA_NAME="sttfstate${ENVIRONMENT}${APP_ID}"
 CONTAINER="tfstate"
 
 if [[ -z "$ENVIRONMENT" ]]; then
@@ -30,7 +30,7 @@ az group create \
   --name "$RG_NAME" \
   --location "$LOCATION" \
   --subscription "$SUBSCRIPTION_ID" \
-  --tags ApplicationId="$APP_ID" ManagedBy=bootstrap
+  --tags ApplicationId="$APP_ID" ManagedBy=bootstrap Environment="$ENVIRONMENT"
 
 echo "[2/3] Creating storage account..."
 az storage account create \
@@ -42,7 +42,7 @@ az storage account create \
   --kind StorageV2 \
   --min-tls-version TLS1_2 \
   --allow-blob-public-access false \
-  --tags ApplicationId="$APP_ID" ManagedBy=bootstrap
+  --tags ApplicationId="$APP_ID" ManagedBy=bootstrap Environment="$ENVIRONMENT"
 
 echo "[3/3] Creating blob container..."
 az storage container create \
