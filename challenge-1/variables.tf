@@ -88,6 +88,22 @@ variable "vm_os_disk_type" {
   default     = "Standard_LRS"
 }
 
+variable "vm_image" {
+  description = "Source image reference for the virtual machine"
+  type = object({
+    publisher = string
+    offer     = string
+    sku       = string
+    version   = string
+  })
+  default = {
+    publisher = "Canonical"
+    offer     = "0001-com-ubuntu-server-jammy"
+    sku       = "22_04-lts-gen2"
+    version   = "latest"
+  }
+}
+
 variable "create_public_ip" {
   description = "Whether to create a public IP for the VM"
   type        = bool

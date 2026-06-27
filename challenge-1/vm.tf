@@ -50,9 +50,9 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 
   source_image_reference {
-    publisher = "Canonical"
-    offer     = "0001-com-ubuntu-server-jammy"
-    sku       = "22_04-lts-gen2"
-    version   = "latest"
+    publisher = var.vm_image.publisher
+    offer     = var.vm_image.offer
+    sku       = var.vm_image.sku
+    version   = var.vm_image.version
   }
 }
