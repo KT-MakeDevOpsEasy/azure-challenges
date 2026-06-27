@@ -1,0 +1,216 @@
+Terraform will perform the following actions:
+
+  # azurerm_resource_group.this will be created
+  + resource "azurerm_resource_group" "this" {
+      + id       = (known after apply)
+      + location = "eastus"
+      + name     = "rg-demo-dev-eus"
+      + tags     = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "demo"
+          + "Region"      = "eastus"
+        }
+    }
+
+  # module.vnet.module.vnet.azurerm_virtual_network.this will be created
+  + resource "azurerm_virtual_network" "this" {
+      + address_space       = [
+          + "10.10.0.0/16",
+        ]
+      + id                  = (known after apply)
+      + location            = "eastus"
+      + name                = "vnet-demo-dev-eus"
+      + resource_group_name = "rg-demo-dev-eus"
+      + tags                = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "demo"
+          + "Region"      = "eastus"
+        }
+    }
+
+  # module.vnet.module.vnet.azurerm_subnet.this["snet-aks-nodes"] will be created
+  + resource "azurerm_subnet" "this" {
+      + address_prefixes     = [
+          + "10.10.1.0/24",
+        ]
+      + id                   = (known after apply)
+      + name                 = "snet-aks-nodes"
+      + resource_group_name  = "rg-demo-dev-eus"
+      + virtual_network_name = "vnet-demo-dev-eus"
+    }
+
+  # module.vnet.module.vnet.azurerm_subnet.this["snet-appgw"] will be created
+  + resource "azurerm_subnet" "this" {
+      + address_prefixes     = [
+          + "10.10.2.0/24",
+        ]
+      + id                   = (known after apply)
+      + name                 = "snet-appgw"
+      + resource_group_name  = "rg-demo-dev-eus"
+      + virtual_network_name = "vnet-demo-dev-eus"
+    }
+
+  # azurerm_log_analytics_workspace.this will be created
+  + resource "azurerm_log_analytics_workspace" "this" {
+      + id                  = (known after apply)
+      + location            = "eastus"
+      + name                = "log-demo-dev-eus"
+      + resource_group_name = "rg-demo-dev-eus"
+      + retention_in_days   = 30
+      + sku                 = "PerGB2018"
+      + tags                = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "demo"
+          + "Region"      = "eastus"
+        }
+    }
+
+  # azurerm_container_registry.this will be created
+  + resource "azurerm_container_registry" "this" {
+      + admin_enabled       = false
+      + id                  = (known after apply)
+      + location            = "eastus"
+      + login_server        = (known after apply)
+      + name                = "acrdemodeveeus"
+      + resource_group_name = "rg-demo-dev-eus"
+      + sku                 = "Basic"
+      + tags                = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "demo"
+          + "Region"      = "eastus"
+        }
+    }
+
+  # azurerm_key_vault.this will be created
+  + resource "azurerm_key_vault" "this" {
+      + enable_rbac_authorization   = true
+      + id                          = (known after apply)
+      + location                    = "eastus"
+      + name                        = "kv-demo-dev-eus"
+      + purge_protection_enabled    = false
+      + resource_group_name         = "rg-demo-dev-eus"
+      + sku_name                    = "standard"
+      + soft_delete_retention_days  = 7
+      + tags                        = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "demo"
+          + "Region"      = "eastus"
+        }
+      + vault_uri                   = (known after apply)
+    }
+
+  # module.aks.module.aks.azurerm_user_assigned_identity.aks will be created
+  + resource "azurerm_user_assigned_identity" "aks" {
+      + id                  = (known after apply)
+      + location            = "eastus"
+      + name                = "id-aks-demo-dev-eus"
+      + resource_group_name = "rg-demo-dev-eus"
+      + tags                = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "demo"
+          + "Region"      = "eastus"
+        }
+    }
+
+  # module.aks.module.aks.azurerm_kubernetes_cluster.this will be created
+  + resource "azurerm_kubernetes_cluster" "this" {
+      + dns_prefix              = "demo-dev"
+      + fqdn                    = (known after apply)
+      + id                      = (known after apply)
+      + location                = "eastus"
+      + name                    = "aks-demo-dev-eus"
+      + node_resource_group     = (known after apply)
+      + oidc_issuer_url         = (known after apply)
+      + private_cluster_enabled = false
+      + resource_group_name     = "rg-demo-dev-eus"
+      + sku_tier                = "Free"
+      + tags                    = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "demo"
+          + "Region"      = "eastus"
+        }
+
+      + default_node_pool {
+          + enable_auto_scaling          = true
+          + max_count                    = 3
+          + min_count                    = 1
+          + name                         = "system"
+          + only_critical_addons_enabled = true
+          + os_disk_size_gb              = 50
+          + vm_size                      = "Standard_D2s_v3"
+          + zones                        = [
+              + "1",
+              + "2",
+              + "3",
+            ]
+        }
+
+      + network_profile {
+          + dns_service_ip    = "172.16.0.10"
+          + load_balancer_sku = "standard"
+          + network_plugin    = "azure"
+          + network_policy    = "calico"
+          + service_cidr      = "172.16.0.0/16"
+        }
+    }
+
+  # module.aks.module.aks.azurerm_kubernetes_cluster_node_pool.user["workload"] will be created
+  + resource "azurerm_kubernetes_cluster_node_pool" "user" {
+      + enable_auto_scaling = true
+      + id                  = (known after apply)
+      + max_count           = 5
+      + min_count           = 1
+      + name                = "workload"
+      + os_disk_size_gb     = 100
+      + vm_size             = "Standard_D4s_v3"
+      + zones               = [
+          + "1",
+          + "2",
+          + "3",
+        ]
+      + node_labels         = {
+          + "workload-type" = "general"
+        }
+    }
+
+  # module.aks.module.aks.azurerm_role_assignment.aks_network will be created
+  + resource "azurerm_role_assignment" "aks_network" {
+      + id                   = (known after apply)
+      + role_definition_name = "Network Contributor"
+      + scope                = (known after apply)
+    }
+
+  # azurerm_role_assignment.aks_acr_pull will be created
+  + resource "azurerm_role_assignment" "aks_acr_pull" {
+      + id                   = (known after apply)
+      + role_definition_name = "AcrPull"
+      + scope                = (known after apply)
+    }
+
+  # azurerm_role_assignment.aks_keyvault will be created
+  + resource "azurerm_role_assignment" "aks_keyvault" {
+      + id                   = (known after apply)
+      + role_definition_name = "Key Vault Secrets User"
+      + scope                = (known after apply)
+    }
+
+Plan: 13 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + acr_login_server           = (known after apply)
+  + aks_cluster_fqdn           = (known after apply)
+  + aks_cluster_name           = "aks-demo-dev-eus"
+  + aks_oidc_issuer_url        = (known after apply)
+  + get_credentials_command    = "az aks get-credentials --resource-group rg-demo-dev-eus --name aks-demo-dev-eus"
+  + key_vault_uri              = (known after apply)
+  + log_analytics_workspace_id = (known after apply)
+  + resource_group_name        = "rg-demo-dev-eus"
+  + subnet_ids                 = (known after apply)
+  + vnet_id                    = (known after apply)

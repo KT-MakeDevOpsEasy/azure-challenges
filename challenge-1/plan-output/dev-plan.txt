@@ -1,0 +1,244 @@
+Terraform will perform the following actions:
+
+  # azurerm_resource_group.this will be created
+  + resource "azurerm_resource_group" "this" {
+      + id       = (known after apply)
+      + location = "eastus"
+      + name     = "rg-demo-dev-eus"
+      + tags     = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "demo"
+          + "Region"      = "eastus"
+        }
+    }
+
+  # module.vnet.module.vnet.azurerm_virtual_network.this will be created
+  + resource "azurerm_virtual_network" "this" {
+      + address_space       = [
+          + "10.0.0.0/16",
+        ]
+      + id                  = (known after apply)
+      + location            = "eastus"
+      + name                = "vnet-demo-dev-eus"
+      + resource_group_name = "rg-demo-dev-eus"
+      + tags                = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "demo"
+          + "Region"      = "eastus"
+        }
+    }
+
+  # module.vnet.module.vnet.azurerm_subnet.this["default"] will be created
+  + resource "azurerm_subnet" "this" {
+      + address_prefixes     = [
+          + "10.0.0.0/24",
+        ]
+      + id                   = (known after apply)
+      + name                 = "default"
+      + resource_group_name  = "rg-demo-dev-eus"
+      + virtual_network_name = "vnet-demo-dev-eus"
+    }
+
+  # module.vnet.module.vnet.azurerm_subnet.this["compute"] will be created
+  + resource "azurerm_subnet" "this" {
+      + address_prefixes     = [
+          + "10.0.1.0/24",
+        ]
+      + id                   = (known after apply)
+      + name                 = "compute"
+      + resource_group_name  = "rg-demo-dev-eus"
+      + virtual_network_name = "vnet-demo-dev-eus"
+    }
+
+  # module.vnet.module.vnet.azurerm_subnet.this["storage"] will be created
+  + resource "azurerm_subnet" "this" {
+      + address_prefixes     = [
+          + "10.0.2.0/24",
+        ]
+      + id                   = (known after apply)
+      + name                 = "storage"
+      + resource_group_name  = "rg-demo-dev-eus"
+      + service_endpoints    = [
+          + "Microsoft.Storage",
+        ]
+      + virtual_network_name = "vnet-demo-dev-eus"
+    }
+
+  # module.vnet.module.vnet.azurerm_network_security_group.this["compute"] will be created
+  + resource "azurerm_network_security_group" "this" {
+      + id                  = (known after apply)
+      + location            = "eastus"
+      + name                = "nsg-compute"
+      + resource_group_name = "rg-demo-dev-eus"
+      + tags                = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "demo"
+          + "Region"      = "eastus"
+        }
+    }
+
+  # module.vnet.module.vnet.azurerm_network_security_group.this["storage"] will be created
+  + resource "azurerm_network_security_group" "this" {
+      + id                  = (known after apply)
+      + location            = "eastus"
+      + name                = "nsg-storage"
+      + resource_group_name = "rg-demo-dev-eus"
+      + tags                = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "demo"
+          + "Region"      = "eastus"
+        }
+    }
+
+  # module.vnet.module.vnet.azurerm_network_security_rule.this["compute-AllowSSH"] will be created
+  + resource "azurerm_network_security_rule" "this" {
+      + access                      = "Allow"
+      + destination_address_prefix  = "*"
+      + destination_port_range      = "22"
+      + direction                   = "Inbound"
+      + name                        = "AllowSSH"
+      + network_security_group_name = "nsg-compute"
+      + priority                    = 100
+      + protocol                    = "Tcp"
+      + resource_group_name         = "rg-demo-dev-eus"
+      + source_address_prefix       = "*"
+      + source_port_range           = "*"
+    }
+
+  # module.vnet.module.vnet.azurerm_network_security_rule.this["compute-DenyAllInbound"] will be created
+  + resource "azurerm_network_security_rule" "this" {
+      + access                      = "Deny"
+      + destination_address_prefix  = "*"
+      + destination_port_range      = "*"
+      + direction                   = "Inbound"
+      + name                        = "DenyAllInbound"
+      + network_security_group_name = "nsg-compute"
+      + priority                    = 4096
+      + protocol                    = "*"
+      + resource_group_name         = "rg-demo-dev-eus"
+      + source_address_prefix       = "Internet"
+      + source_port_range           = "*"
+    }
+
+  # module.vnet.module.vnet.azurerm_network_security_rule.this["storage-DenyAllInbound"] will be created
+  + resource "azurerm_network_security_rule" "this" {
+      + access                      = "Deny"
+      + destination_address_prefix  = "*"
+      + destination_port_range      = "*"
+      + direction                   = "Inbound"
+      + name                        = "DenyAllInbound"
+      + network_security_group_name = "nsg-storage"
+      + priority                    = 4096
+      + protocol                    = "*"
+      + resource_group_name         = "rg-demo-dev-eus"
+      + source_address_prefix       = "Internet"
+      + source_port_range           = "*"
+    }
+
+  # azurerm_storage_account.this will be created
+  + resource "azurerm_storage_account" "this" {
+      + account_replication_type = "LRS"
+      + account_tier             = "Standard"
+      + id                       = (known after apply)
+      + location                 = "eastus"
+      + min_tls_version          = "TLS1_2"
+      + name                     = "stdemodeveeus"
+      + resource_group_name      = "rg-demo-dev-eus"
+      + tags                     = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "demo"
+          + "Region"      = "eastus"
+        }
+    }
+
+  # azurerm_storage_container.data will be created
+  + resource "azurerm_storage_container" "data" {
+      + container_access_type = "private"
+      + name                  = "data"
+      + storage_account_name  = "stdemodeveeus"
+    }
+
+  # azurerm_public_ip.vm[0] will be created
+  + resource "azurerm_public_ip" "vm" {
+      + allocation_method   = "Static"
+      + id                  = (known after apply)
+      + ip_address          = (known after apply)
+      + location            = "eastus"
+      + name                = "pip-vm-demo-dev-eus"
+      + resource_group_name = "rg-demo-dev-eus"
+      + sku                 = "Standard"
+      + tags                = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "demo"
+          + "Region"      = "eastus"
+        }
+    }
+
+  # azurerm_network_interface.vm will be created
+  + resource "azurerm_network_interface" "vm" {
+      + id                  = (known after apply)
+      + location            = "eastus"
+      + name                = "nic-vm-demo-dev-eus"
+      + resource_group_name = "rg-demo-dev-eus"
+      + tags                = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "demo"
+          + "Region"      = "eastus"
+        }
+
+      + ip_configuration {
+          + name                          = "internal"
+          + private_ip_address_allocation = "Dynamic"
+          + subnet_id                     = (known after apply)
+          + public_ip_address_id          = (known after apply)
+        }
+    }
+
+  # azurerm_linux_virtual_machine.this will be created
+  + resource "azurerm_linux_virtual_machine" "this" {
+      + admin_username                  = "azureuser"
+      + disable_password_authentication = true
+      + id                              = (known after apply)
+      + location                        = "eastus"
+      + name                            = "vm-demo-dev-eus"
+      + resource_group_name             = "rg-demo-dev-eus"
+      + size                            = "Standard_B1s"
+      + tags                            = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "demo"
+          + "Region"      = "eastus"
+        }
+
+      + os_disk {
+          + caching              = "ReadWrite"
+          + name                 = "osdisk-vm-demo-dev-eus"
+          + storage_account_type = "Standard_LRS"
+        }
+
+      + source_image_reference {
+          + offer     = "0001-com-ubuntu-server-jammy"
+          + publisher = "Canonical"
+          + sku       = "22_04-lts-gen2"
+          + version   = "latest"
+        }
+    }
+
+Plan: 16 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + resource_group_name                   = "rg-demo-dev-eus"
+  + storage_account_name                  = "stdemodeveeus"
+  + storage_account_primary_blob_endpoint = (known after apply)
+  + subnet_ids                            = (known after apply)
+  + vm_private_ip                         = (known after apply)
+  + vm_public_ip                          = (known after apply)
+  + vnet_id                               = (known after apply)
+  + vnet_name                             = "vnet-demo-dev-eus"
