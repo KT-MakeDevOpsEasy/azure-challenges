@@ -65,19 +65,18 @@ jobs:
         run: terraform init -backend-config=backends/dev.backend.hcl
 
       - name: Terraform Plan
-        run: terraform plan -var-file=envs/dev.tfvars -out=dev.tfplan -no-color
+        id: plan
+        run: terraform plan -var-file=envs/dev.tfvars -no-color
         env:
           TF_VAR_subscription_id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: Post Plan to PR
         uses: actions/github-script@v7
-        if: github.event_name == 'pull_request'
         with:
           script: |
-            const fs = require('fs');
             const output = `#### Terraform Plan (dev) 📋
             \`\`\`
-            ${process.env.PLAN_OUTPUT || 'Plan completed. See workflow logs for details.'}
+            ${{ steps.plan.outputs.stdout }}
             \`\`\`
             *Pushed by: @${{ github.actor }}*`;
             github.rest.issues.createComment({
@@ -111,9 +110,26 @@ jobs:
         run: terraform init -backend-config=backends/prod.backend.hcl
 
       - name: Terraform Plan
-        run: terraform plan -var-file=envs/prod.tfvars -out=prod.tfplan -no-color
+        id: plan
+        run: terraform plan -var-file=envs/prod.tfvars -no-color
         env:
           TF_VAR_subscription_id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Post Plan to PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const output = `#### Terraform Plan (prod) 📋
+            \`\`\`
+            ${{ steps.plan.outputs.stdout }}
+            \`\`\`
+            *Pushed by: @${{ github.actor }}*`;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            });
 
   deploy-dev:
     name: "Deploy (dev)"

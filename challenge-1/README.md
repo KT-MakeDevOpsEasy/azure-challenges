@@ -74,12 +74,12 @@ terraform apply -var-file=envs/prod.tfvars
 
 ## CI/CD Pipeline
 
-| Event | Branch | Action |
-|---|---|---|
-| PR → `dev` | dev | Lint + Plan dev |
-| Push → `dev` | dev | Apply dev |
-| PR → `main` | main | Lint + Plan prod |
-| Push → `main` | main | Apply prod (with approval) |
+| Event | Action |
+|---|---|
+| PR → `dev` | Lint + Plan dev (posted as PR comment) |
+| Merge → `dev` | Apply dev |
+| PR → `main` | Lint + Plan prod (posted as PR comment) |
+| Merge → `main` | Apply prod (environment approval required) |
 
-Plan output is saved as artifact and posted as PR comment.
+Feature branches → PR to `dev` → review plan → merge → apply. Then `dev` → PR to `main` → review plan → approve → merge → apply.
 
