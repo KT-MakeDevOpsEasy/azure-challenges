@@ -43,3 +43,5 @@ log_retention_days  = 30
 kv_soft_delete_days = 7
 kv_purge_protection = false
 kv_purge_on_destroy = true
+
+enable_alerts = false

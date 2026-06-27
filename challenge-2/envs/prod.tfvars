@@ -44,3 +44,6 @@ log_retention_days  = 90
 kv_soft_delete_days = 90
 kv_purge_protection = true
 kv_purge_on_destroy = false
+
+enable_alerts = true
+alert_email   = "ops-team@example.com"

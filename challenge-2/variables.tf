@@ -141,3 +141,17 @@ variable "kv_purge_on_destroy" {
   type        = bool
   default     = true
 }
+
+# --- Alerts ---
+
+variable "enable_alerts" {
+  description = "Create Azure Monitor metric alerts for AKS cluster"
+  type        = bool
+  default     = false
+}
+
+variable "alert_email" {
+  description = "Email address for alert notifications"
+  type        = string
+  default     = ""
+}
