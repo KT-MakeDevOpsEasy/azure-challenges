@@ -28,12 +28,12 @@ output "vm_public_ip" {
   value       = var.enable_vm && var.create_public_ip ? azurerm_public_ip.vm_pip[0].ip_address : null
 }
 
-output "storage_account_name" {
-  description = "Name of the storage account"
-  value       = var.enable_storage ? azurerm_storage_account.storage[0].name : null
+output "key_vault_name" {
+  description = "Name of the Key Vault"
+  value       = var.enable_keyvault ? azurerm_key_vault.kv[0].name : null
 }
 
-output "storage_account_primary_blob_endpoint" {
-  description = "Primary blob endpoint of the storage account"
-  value       = var.enable_storage ? azurerm_storage_account.storage[0].primary_blob_endpoint : null
+output "key_vault_uri" {
+  description = "URI of the Key Vault"
+  value       = var.enable_keyvault ? azurerm_key_vault.kv[0].vault_uri : null
 }

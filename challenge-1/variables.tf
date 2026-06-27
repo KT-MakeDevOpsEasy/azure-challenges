@@ -50,8 +50,8 @@ variable "enable_vm" {
   default     = true
 }
 
-variable "enable_storage" {
-  description = "Create the storage account and blob container"
+variable "enable_keyvault" {
+  description = "Create Azure Key Vault"
   type        = bool
   default     = true
 }
@@ -94,8 +94,20 @@ variable "create_public_ip" {
   default     = true
 }
 
-variable "storage_replication_type" {
-  description = "Replication type for the storage account (LRS, GRS, ZRS, etc.)"
-  type        = string
-  default     = "LRS"
+variable "kv_soft_delete_days" {
+  description = "Key Vault soft delete retention in days"
+  type        = number
+  default     = 7
+}
+
+variable "kv_purge_protection" {
+  description = "Enable Key Vault purge protection"
+  type        = bool
+  default     = false
+}
+
+variable "kv_purge_on_destroy" {
+  description = "Purge Key Vault soft-deleted vaults on terraform destroy"
+  type        = bool
+  default     = true
 }

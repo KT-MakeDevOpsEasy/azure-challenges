@@ -19,7 +19,7 @@ Reusable Modules (versioned, tagged v1.0.0)
 └── terraform-azurerm-aks           → AKS + Node Pools + Identity + Autoscaler + enforced tags
 
 Deployments (this repo)
-├── challenge-1/                    → VNET + VM + Storage (uses terraform-azurerm-vnet)
+├── challenge-1/                    → VNET + VM + KeyVault (uses terraform-azurerm-vnet)
 └── challenge-2/                    → AKS + ACR + KeyVault + Log Analytics (uses both modules)
 
 Platform & Application
@@ -38,7 +38,7 @@ export TF_VAR_subscription_id=$(az account show --query id -o tsv)
 
 # 2. Bootstrap state storage
 cd challenge-1
-./scripts/bootstrap-state.sh
+./scripts/bootstrap-state.sh dev
 
 # 3. Deploy VNET (Challenge 1)
 terraform init -backend-config=backends/dev.backend.hcl

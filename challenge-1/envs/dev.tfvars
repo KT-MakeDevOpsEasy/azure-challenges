@@ -19,12 +19,15 @@ subnets = {
   }
 }
 
-enable_vm      = true
-enable_storage = true
+enable_vm       = true
+enable_keyvault = true
 
-ssh_source_prefix        = "*"
-vm_size                  = "Standard_B1s"
-vm_admin_username        = "azureuser"
-vm_os_disk_type          = "Standard_LRS"
-create_public_ip         = true
-storage_replication_type = "LRS"
+ssh_source_prefix = "*"
+vm_size           = "Standard_B1s"
+vm_admin_username = "azureuser"
+vm_os_disk_type   = "Standard_LRS"
+create_public_ip  = true
+
+kv_soft_delete_days = 7
+kv_purge_protection = false
+kv_purge_on_destroy = true

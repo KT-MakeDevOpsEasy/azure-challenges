@@ -2,7 +2,7 @@
 
 ## Requirements
 
-Build a reusable Terraform module to deploy an Azure Virtual Network (VNET), use it to create multiple environments (dev/prod), and add additional resources (VM + Storage Account).
+Build a reusable Terraform module to deploy an Azure Virtual Network (VNET), use it to create multiple environments (dev/prod), and add additional resources (VM + Key Vault).
 
 ## Solution Architecture
 
@@ -43,7 +43,7 @@ Resource Groups provide environment isolation at lower cost and complexity. Subs
 ### Feature Flags
 Resources can be toggled per environment via tfvars:
 - `enable_vm` — create/skip the Linux VM
-- `enable_storage` — create/skip the Storage Account
+- `enable_keyvault` — create/skip the Key Vault
 - `create_public_ip` — public IP for VM (dev: true, prod: false)
 
 ### Code Quality Tools
@@ -59,7 +59,7 @@ export TF_VAR_subscription_id=$(az account show --query id -o tsv)
 export TF_VAR_vm_ssh_public_key=$(cat ~/.ssh/id_rsa.pub)
 
 # Bootstrap state storage (first time only)
-./scripts/bootstrap-state.sh
+./scripts/bootstrap-state.sh dev
 
 # Deploy dev
 terraform init -backend-config=backends/dev.backend.hcl

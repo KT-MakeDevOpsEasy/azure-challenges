@@ -11,8 +11,6 @@ locals {
   short_location = lookup(local.location_short_map, var.location, substr(var.location, 0, 4))
   name_suffix    = "${var.project}-${var.environment}-${local.short_location}"
 
-  storage_name = substr("st${var.project}${var.environment}${local.short_location}", 0, 24)
-
   common_tags = {
     Environment   = var.environment
     Project       = var.project
