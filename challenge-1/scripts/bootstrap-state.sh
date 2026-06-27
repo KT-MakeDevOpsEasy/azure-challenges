@@ -15,6 +15,9 @@ if [[ -z "$ENVIRONMENT" ]]; then
   exit 1
 fi
 
+SUBSCRIPTION_ID=$(az account show --query id -o tsv)
+echo "Subscription: ${SUBSCRIPTION_ID}"
+
 echo "=== Bootstrapping Terraform State Storage ==="
 echo "Environment: ${ENVIRONMENT}"
 echo "Resource Group: ${RG_NAME}"
@@ -26,6 +29,7 @@ echo "[1/3] Creating resource group..."
 az group create \
   --name "$RG_NAME" \
   --location "$LOCATION" \
+  --subscription "$SUBSCRIPTION_ID" \
   --tags ApplicationId="$APP_ID" ManagedBy=bootstrap
 
 echo "[2/3] Creating storage account..."
@@ -33,6 +37,7 @@ az storage account create \
   --name "$SA_NAME" \
   --resource-group "$RG_NAME" \
   --location "$LOCATION" \
+  --subscription "$SUBSCRIPTION_ID" \
   --sku Standard_LRS \
   --kind StorageV2 \
   --min-tls-version TLS1_2 \
@@ -42,7 +47,8 @@ az storage account create \
 echo "[3/3] Creating blob container..."
 az storage container create \
   --name "$CONTAINER" \
-  --account-name "$SA_NAME"
+  --account-name "$SA_NAME" \
+  --subscription "$SUBSCRIPTION_ID"
 
 echo ""
 echo "=== State storage ready ==="
