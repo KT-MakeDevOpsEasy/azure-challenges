@@ -14,16 +14,16 @@ This repository contains the implementation for two Azure infrastructure challen
 ## Architecture Overview
 
 ```
-Reusable Modules (versioned, tagged)
-├── terraform-azurerm-vnet          → VNET + Subnets + NSGs + DDoS
-└── terraform-azurerm-aks           → AKS + Node Pools + Identity + Autoscaler
+Reusable Modules (versioned, tagged v1.0.0)
+├── terraform-azurerm-vnet          → VNET + Subnets + NSGs + DDoS + enforced tags
+└── terraform-azurerm-aks           → AKS + Node Pools + Identity + Autoscaler + enforced tags
 
-Deployment Repos (env-specific tfvars)
-├── terraform-azure-vnet-deployment → Challenge 1: VNET + VM + Storage
-└── terraform-azure-aks-deployment  → Challenge 2: AKS + ACR + KeyVault + Log Analytics
+Deployments (this repo)
+├── challenge-1/                    → VNET + VM + Storage (uses terraform-azurerm-vnet)
+└── challenge-2/                    → AKS + ACR + KeyVault + Log Analytics (uses both modules)
 
 Platform & Application
-├── aks-platform-config             → Gatekeeper policies, bootstrap script
+├── aks-platform-config             → Gatekeeper + NGINX Ingress bootstrap + OPA policies
 ├── aks-app-deployment              → Helm umbrella chart (frontend + backend + database)
 ├── helm-gatekeeper                 → Gatekeeper Helm values
 └── helm-ingress-nginx              → NGINX Ingress Helm values

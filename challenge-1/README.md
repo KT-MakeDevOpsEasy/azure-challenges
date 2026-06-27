@@ -17,8 +17,7 @@ terraform-azurerm-vnet (reusable module, v1.0.0)
 
 | Repo | Purpose |
 |---|---|
-| [terraform-azurerm-vnet](https://github.com/KT-MakeDevOpsEasy/terraform-azurerm-vnet) | Reusable VNET module with subnets, NSGs, DDoS protection |
-| [terraform-azure-vnet-deployment](https://github.com/KT-MakeDevOpsEasy/terraform-azure-vnet-deployment) | Standalone deployment repo (same code as this folder) |
+| [terraform-azurerm-vnet](https://github.com/KT-MakeDevOpsEasy/terraform-azurerm-vnet) | Reusable VNET module with subnets, NSGs, DDoS protection, enforced tags |
 
 ## Design Decisions
 

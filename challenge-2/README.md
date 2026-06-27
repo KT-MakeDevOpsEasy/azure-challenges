@@ -25,7 +25,6 @@ Platform & Application (deployed after cluster creation)
 |---|---|
 | [terraform-azurerm-aks](https://github.com/KT-MakeDevOpsEasy/terraform-azurerm-aks) | Reusable AKS module |
 | [terraform-azurerm-vnet](https://github.com/KT-MakeDevOpsEasy/terraform-azurerm-vnet) | Reusable VNET module (used for AKS networking) |
-| [terraform-azure-aks-deployment](https://github.com/KT-MakeDevOpsEasy/terraform-azure-aks-deployment) | Standalone deployment repo (same code as this folder) |
 | [aks-platform-config](https://github.com/KT-MakeDevOpsEasy/aks-platform-config) | OPA/Gatekeeper policies, bootstrap script |
 | [aks-app-deployment](https://github.com/KT-MakeDevOpsEasy/aks-app-deployment) | Multi-tier Helm umbrella chart |
 | [helm-gatekeeper](https://github.com/KT-MakeDevOpsEasy/helm-gatekeeper) | Gatekeeper Helm configuration |
