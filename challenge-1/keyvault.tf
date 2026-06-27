@@ -9,7 +9,6 @@ resource "azurerm_key_vault" "kv" {
   tenant_id                  = data.azurerm_client_config.current.tenant_id
   sku_name                   = "standard"
   soft_delete_retention_days = var.kv_soft_delete_days
-  purge_protection_enabled   = var.kv_purge_protection
-  enable_rbac_authorization  = true
-  tags                       = local.common_tags
+  purge_protection_enabled  = var.kv_purge_protection
+  tags                      = local.common_tags
 }
