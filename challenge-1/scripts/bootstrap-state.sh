@@ -1,13 +1,22 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+ENVIRONMENT="${1:-}"
 APP_ID="ci36432"
 LOCATION="eastus"
 RG_NAME="rg-tfstate-${APP_ID}"
 SA_NAME="sttfstate${APP_ID}"
 CONTAINER="tfstate"
 
+if [[ -z "$ENVIRONMENT" ]]; then
+  echo "Usage: $0 <environment>"
+  echo "  e.g. $0 dev"
+  echo "  e.g. $0 prod"
+  exit 1
+fi
+
 echo "=== Bootstrapping Terraform State Storage ==="
+echo "Environment: ${ENVIRONMENT}"
 echo "Resource Group: ${RG_NAME}"
 echo "Storage Account: ${SA_NAME}"
 echo "Container: ${CONTAINER}"
@@ -37,4 +46,4 @@ az storage container create \
 
 echo ""
 echo "=== State storage ready ==="
-echo "Use: terraform init -backend-config=backends/dev.backend.hcl"
+echo "Use: terraform init -backend-config=backends/${ENVIRONMENT}.backend.hcl"
