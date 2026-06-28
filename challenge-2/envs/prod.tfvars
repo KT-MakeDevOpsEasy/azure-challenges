@@ -1,12 +1,13 @@
 application_id = "ci36432"
 
-project     = "demo"
+project     = "aks"
 environment = "prod"
 location    = "westeurope"
 
-vnet_address_space   = ["10.0.0.0/8"]
-node_subnet_cidr     = "10.0.0.0/16"
-appgw_subnet_cidr    = "10.1.0.0/16"
+vnet_address_space = ["10.0.0.0/8"]
+node_subnet_cidr   = "10.0.0.0/16"
+appgw_subnet_cidr  = "10.1.0.0/16"
+pe_subnet_cidr     = "10.2.0.0/16"
 authorized_ip_ranges = ["10.0.0.0/8"]
 
 aks_sku_tier = "Standard"
@@ -39,7 +40,8 @@ enable_acr           = true
 enable_keyvault      = true
 enable_log_analytics = true
 
-acr_sku             = "Standard"
+acr_sku                      = "Premium"
+acr_private_endpoint_enabled = true
 log_retention_days  = 90
 kv_soft_delete_days = 90
 kv_purge_protection = true
