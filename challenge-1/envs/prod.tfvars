@@ -30,8 +30,8 @@ create_public_ip  = false
 
 vm_image = {
   publisher = "Canonical"
-  offer     = "0001-com-ubuntu-server-noble"
-  sku       = "24_04-lts-gen2"
+  offer     = "0001-com-ubuntu-server-jammy"
+  sku       = "22_04-lts-gen2"
   version   = "latest"
 }
 
