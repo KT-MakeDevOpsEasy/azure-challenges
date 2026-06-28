@@ -5,10 +5,12 @@ on:
     branches: [main]
     paths:
       - "challenge-2/**"
+      - ".github/workflows/challenge-2-prod.yml"
   push:
     branches: [main]
     paths:
       - "challenge-2/**"
+      - ".github/workflows/challenge-2-prod.yml"
 
 env:
   TERRAFORM_VERSION: "1.15.7"
