@@ -1,6 +1,6 @@
 application_id = "ci36432"
 
-project     = "aks"
+project     = "pharma"
 environment = "prod"
 location    = "westeurope"
 
