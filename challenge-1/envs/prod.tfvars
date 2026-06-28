@@ -23,7 +23,7 @@ enable_vm       = true
 enable_keyvault = true
 
 ssh_source_prefix = "10.0.0.0/8"
-vm_size           = "Standard_B2s"
+vm_size           = "Standard_D2ds_v7"
 vm_admin_username = "azureuser"
 vm_os_disk_type   = "Premium_LRS"
 create_public_ip  = false
