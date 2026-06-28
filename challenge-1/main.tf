@@ -8,5 +8,4 @@ module "vnet" {
   subnets             = var.subnets
   nsg_rules           = local.nsg_rules
   tags                = local.common_tags
-  blocks = "test"
 }
