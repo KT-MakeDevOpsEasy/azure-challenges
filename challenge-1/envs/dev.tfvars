@@ -39,6 +39,44 @@ vm_image = {
   version   = "latest"
 }
 
+extra_nsg_rules = {
+  compute = [
+    {
+      name                       = "AllowOutboundHTTPS"
+      priority                   = 100
+      direction                  = "Outbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = "443"
+      source_address_prefix      = "*"
+      destination_address_prefix = "Internet"
+    },
+    {
+      name                       = "AllowOutboundHTTP"
+      priority                   = 200
+      direction                  = "Outbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = "80"
+      source_address_prefix      = "*"
+      destination_address_prefix = "Internet"
+    },
+    {
+      name                       = "DenyOutboundAll"
+      priority                   = 4096
+      direction                  = "Outbound"
+      access                     = "Deny"
+      protocol                   = "*"
+      source_port_range          = "*"
+      destination_port_range     = "*"
+      source_address_prefix      = "*"
+      destination_address_prefix = "*"
+    },
+  ]
+}
+
 kv_soft_delete_days = 7
 kv_purge_protection = false
 kv_purge_on_destroy = true
