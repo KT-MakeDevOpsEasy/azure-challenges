@@ -46,6 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: validate
     if: github.event_name == 'pull_request' && github.base_ref == 'dev'
+    environment: dev
     defaults:
       run:
         working-directory: ${{ env.WORKING_DIR }}
@@ -57,9 +58,12 @@ jobs:
           terraform_version: ${{ env.TERRAFORM_VERSION }}
 
       - name: Azure Login
-        uses: azure/login@v2
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+        run: |
+          az login --service-principal \
+            -u "${{ secrets.AZURE_CLIENT_ID }}" \
+            -p "${{ secrets.AZURE_CLIENT_SECRET }}" \
+            --tenant "${{ secrets.AZURE_TENANT_ID }}"
+          az account set --subscription "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
 
       - name: Terraform Init
         run: terraform init -backend-config=backends/dev.backend.hcl
@@ -74,11 +78,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const output = `#### Terraform Plan (dev) 📋
-            \`\`\`
-            ${{ steps.plan.outputs.stdout }}
-            \`\`\`
-            *Pushed by: @${{ github.actor }}*`;
+            const output = `#### Terraform Plan (dev)\n\`\`\`\n${{ steps.plan.outputs.stdout }}\n\`\`\`\n*Pushed by: @${{ github.actor }}*`;
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
@@ -91,6 +91,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: validate
     if: github.event_name == 'pull_request' && github.base_ref == 'main'
+    environment: production
     defaults:
       run:
         working-directory: ${{ env.WORKING_DIR }}
@@ -102,9 +103,12 @@ jobs:
           terraform_version: ${{ env.TERRAFORM_VERSION }}
 
       - name: Azure Login
-        uses: azure/login@v2
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+        run: |
+          az login --service-principal \
+            -u "${{ secrets.AZURE_CLIENT_ID }}" \
+            -p "${{ secrets.AZURE_CLIENT_SECRET }}" \
+            --tenant "${{ secrets.AZURE_TENANT_ID }}"
+          az account set --subscription "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
 
       - name: Terraform Init
         run: terraform init -backend-config=backends/prod.backend.hcl
@@ -119,11 +123,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const output = `#### Terraform Plan (prod) 📋
-            \`\`\`
-            ${{ steps.plan.outputs.stdout }}
-            \`\`\`
-            *Pushed by: @${{ github.actor }}*`;
+            const output = `#### Terraform Plan (prod)\n\`\`\`\n${{ steps.plan.outputs.stdout }}\n\`\`\`\n*Pushed by: @${{ github.actor }}*`;
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
@@ -148,9 +148,12 @@ jobs:
           terraform_version: ${{ env.TERRAFORM_VERSION }}
 
       - name: Azure Login
-        uses: azure/login@v2
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+        run: |
+          az login --service-principal \
+            -u "${{ secrets.AZURE_CLIENT_ID }}" \
+            -p "${{ secrets.AZURE_CLIENT_SECRET }}" \
+            --tenant "${{ secrets.AZURE_TENANT_ID }}"
+          az account set --subscription "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
 
       - name: Terraform Init
         run: terraform init -backend-config=backends/dev.backend.hcl
@@ -195,9 +198,12 @@ jobs:
           terraform_version: ${{ env.TERRAFORM_VERSION }}
 
       - name: Azure Login
-        uses: azure/login@v2
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+        run: |
+          az login --service-principal \
+            -u "${{ secrets.AZURE_CLIENT_ID }}" \
+            -p "${{ secrets.AZURE_CLIENT_SECRET }}" \
+            --tenant "${{ secrets.AZURE_TENANT_ID }}"
+          az account set --subscription "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
 
       - name: Terraform Init
         run: terraform init -backend-config=backends/prod.backend.hcl
