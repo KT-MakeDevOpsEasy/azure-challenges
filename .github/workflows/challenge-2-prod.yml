@@ -153,7 +153,8 @@ jobs:
             --name ${{ steps.tf.outputs.aks_name }}
           kubelogin convert-kubeconfig -l spn \
             --client-id "${{ secrets.AZURE_CLIENT_ID }}" \
-            --client-secret "${{ secrets.AZURE_CLIENT_SECRET }}"
+            --client-secret "${{ secrets.AZURE_CLIENT_SECRET }}" \
+            --tenant-id "${{ secrets.AZURE_TENANT_ID }}"
 
       - name: Bootstrap Platform
         run: |
