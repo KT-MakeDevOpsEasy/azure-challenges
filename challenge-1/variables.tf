@@ -104,6 +104,22 @@ variable "vm_image" {
   }
 }
 
+variable "extra_nsg_rules" {
+  description = "Additional per-environment NSG rules merged with base rules"
+  type = map(list(object({
+    name                       = string
+    priority                   = number
+    direction                  = string
+    access                     = string
+    protocol                   = string
+    source_port_range          = string
+    destination_port_range     = string
+    source_address_prefix      = string
+    destination_address_prefix = string
+  })))
+  default = {}
+}
+
 variable "create_public_ip" {
   description = "Whether to create a public IP for the VM"
   type        = bool
