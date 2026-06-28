@@ -13,6 +13,10 @@ module "vnet" {
     snet-appgw = {
       address_prefixes = [var.appgw_subnet_cidr]
     }
+    snet-private-endpoints = {
+      address_prefixes                  = [var.pe_subnet_cidr]
+      private_endpoint_network_policies = "Disabled"
+    }
   }
 
   tags = local.common_tags

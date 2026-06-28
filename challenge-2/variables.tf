@@ -38,6 +38,11 @@ variable "appgw_subnet_cidr" {
   type        = string
 }
 
+variable "pe_subnet_cidr" {
+  description = "CIDR for the private endpoints subnet"
+  type        = string
+}
+
 variable "kubernetes_version" {
   description = "Kubernetes version for the AKS cluster"
   type        = string
@@ -109,9 +114,15 @@ variable "enable_log_analytics" {
 # --- ACR ---
 
 variable "acr_sku" {
-  description = "SKU for Azure Container Registry"
+  description = "SKU for Azure Container Registry (Premium required for private endpoint)"
   type        = string
   default     = "Basic"
+}
+
+variable "acr_private_endpoint_enabled" {
+  description = "Enable private endpoint for ACR (requires Premium SKU)"
+  type        = bool
+  default     = false
 }
 
 # --- Log Analytics ---
