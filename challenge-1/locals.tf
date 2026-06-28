@@ -19,7 +19,7 @@ locals {
     Region        = var.location
   }
 
-  nsg_rules = {
+  base_nsg_rules = {
     compute = [
       {
         name                       = "AllowSSH"
@@ -34,5 +34,10 @@ locals {
       },
     ]
     storage = []
+  }
+
+  nsg_rules = {
+    for key, rules in local.base_nsg_rules :
+    key => concat(rules, lookup(var.extra_nsg_rules, key, []))
   }
 }
