@@ -150,7 +150,7 @@ jobs:
 
       - name: Bootstrap Platform
         run: |
-          git clone --depth 1 --branch v1.0.0 \
+          git clone --depth 1 --branch main \
             https://github.com/KT-MakeDevOpsEasy/aks-platform-config.git /tmp/platform
           chmod +x /tmp/platform/scripts/bootstrap.sh
           /tmp/platform/scripts/bootstrap.sh dev ${{ steps.tf.outputs.acr_login_server }}
