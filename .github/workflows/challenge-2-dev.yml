@@ -142,11 +142,18 @@ jobs:
         with:
           version: "3.14.0"
 
+      - name: Install kubelogin
+        run: |
+          az aks install-cli
+
       - name: Get AKS Credentials
         run: |
           az aks get-credentials \
             --resource-group ${{ steps.tf.outputs.rg_name }} \
             --name ${{ steps.tf.outputs.aks_name }}
+          kubelogin convert-kubeconfig -l spn \
+            --client-id "${{ secrets.AZURE_CLIENT_ID }}" \
+            --client-secret "${{ secrets.AZURE_CLIENT_SECRET }}"
 
       - name: Bootstrap Platform
         run: |
