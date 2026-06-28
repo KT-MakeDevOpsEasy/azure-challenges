@@ -1,6 +1,6 @@
 application_id = "ci36432"
 
-project     = "aks"
+project     = "poc"
 environment = "dev"
 location    = "eastus"
 
@@ -26,11 +26,11 @@ enable_acr           = true
 enable_keyvault      = false
 enable_log_analytics = true
 
-acr_sku                     = "Basic"
+acr_sku                      = "Basic"
 acr_private_endpoint_enabled = false
-log_retention_days  = 30
-kv_soft_delete_days = 7
-kv_purge_protection = false
-kv_purge_on_destroy = true
+log_retention_days           = 30
+kv_soft_delete_days          = 7
+kv_purge_protection          = false
+kv_purge_on_destroy          = true
 
 enable_alerts = false
