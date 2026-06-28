@@ -4,8 +4,9 @@ set -euo pipefail
 ENVIRONMENT="${1:-}"
 APP_ID="ci36432"
 LOCATION="eastus"
-RG_NAME="rg-tfstate-${ENVIRONMENT}-${APP_ID}"
-SA_NAME="sttfstate${ENVIRONMENT}${APP_ID}"
+PROJECT="aks"
+RG_NAME="rg-tfstate-${PROJECT}-${ENVIRONMENT}-${APP_ID}"
+SA_NAME="sttfstate${PROJECT}${ENVIRONMENT}${APP_ID}"
 CONTAINER="tfstate"
 
 if [[ -z "$ENVIRONMENT" ]]; then
