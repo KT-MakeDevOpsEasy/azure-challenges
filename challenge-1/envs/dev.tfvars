@@ -17,6 +17,10 @@ subnets = {
     address_prefixes  = ["10.2.0.0/16"]
     service_endpoints = ["Microsoft.Storage"]
   }
+  privateendpoints = {
+    address_prefixes = ["10.3.0.0/16"]
+  }
+
 }
 
 enable_vm       = true
