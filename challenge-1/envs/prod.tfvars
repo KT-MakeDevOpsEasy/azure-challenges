@@ -23,9 +23,9 @@ enable_vm       = true
 enable_keyvault = true
 
 ssh_source_prefix = "10.0.0.0/8"
-vm_size           = "Standard_D2as_v4"
+vm_size           = "Standard_D2as_v6"
 vm_admin_username = "azureuser"
-vm_os_disk_type   = "Premium_LRS"
+vm_os_disk_type   = "Standard_LRS"
 create_public_ip  = false
 
 vm_image = {
