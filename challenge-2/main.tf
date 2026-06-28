@@ -1,5 +1,5 @@
 module "aks" {
-  source = "git::https://github.com/KT-MakeDevOpsEasy/terraform-azurerm-aks.git?ref=v1.0.0"
+  source = "git::https://github.com/KT-MakeDevOpsEasy/terraform-azurerm-aks.git?ref=v1.2.0"
 
   cluster_name        = "aks-${local.name_suffix}"
   resource_group_name = azurerm_resource_group.rg.name

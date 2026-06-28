@@ -20,20 +20,7 @@ system_node_pool = {
   zones                = ["1"]
 }
 
-user_node_pools = {
-  workload = {
-    vm_size              = "Standard_D2ds_v7"
-    min_count            = 1
-    max_count            = 2
-    auto_scaling_enabled = true
-    os_disk_size_gb      = 50
-    zones                = ["1"]
-    node_labels = {
-      "workload-type" = "general"
-    }
-    node_taints = []
-  }
-}
+user_node_pools = {}
 
 enable_acr           = true
 enable_keyvault      = false
