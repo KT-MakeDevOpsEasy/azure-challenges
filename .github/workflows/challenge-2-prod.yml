@@ -130,6 +130,13 @@ jobs:
       - name: Terraform Apply
         run: terraform apply prod.tfplan
 
+      - name: Get Terraform Outputs
+        id: tf
+        run: |
+          echo "rg_name=$(terraform output -raw resource_group_name)" >> "$GITHUB_OUTPUT"
+          echo "aks_name=$(terraform output -raw aks_cluster_name)" >> "$GITHUB_OUTPUT"
+          echo "acr_login_server=$(terraform output -raw acr_login_server)" >> "$GITHUB_OUTPUT"
+
       - name: Set up Helm
         uses: azure/setup-helm@v4
         with:
@@ -138,12 +145,12 @@ jobs:
       - name: Get AKS Credentials
         run: |
           az aks get-credentials \
-            --resource-group ${{ secrets.AKS_RESOURCE_GROUP }} \
-            --name ${{ secrets.AKS_CLUSTER_NAME }}
+            --resource-group ${{ steps.tf.outputs.rg_name }} \
+            --name ${{ steps.tf.outputs.aks_name }}
 
       - name: Bootstrap Platform
         run: |
           git clone --depth 1 --branch v1.0.0 \
             https://github.com/KT-MakeDevOpsEasy/aks-platform-config.git /tmp/platform
           chmod +x /tmp/platform/scripts/bootstrap.sh
-          /tmp/platform/scripts/bootstrap.sh prod
+          /tmp/platform/scripts/bootstrap.sh prod ${{ steps.tf.outputs.acr_login_server }}
