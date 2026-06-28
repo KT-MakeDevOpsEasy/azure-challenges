@@ -83,3 +83,15 @@ terraform apply -var-file=envs/prod.tfvars
 
 Feature branches → PR to `dev` → review plan → merge → apply. Then `dev` → PR to `main` → review plan → approve → merge → apply.
 
+## Environments
+
+| | Dev | Prod |
+|---|---|---|
+| **Region** | eastus | westeurope |
+| **VM Size** | Standard_D2ds_v7 | Standard_D2ds_v7 |
+| **VM Image** | Ubuntu 22.04 LTS | Ubuntu 24.04 LTS |
+| **Public IP** | Yes | No |
+| **Key Vault purge protection** | Disabled | Enabled (90-day retention) |
+| **OS Disk** | Standard_LRS | Premium_LRS |
+| **SSH access** | Any (`*`) | VNET only (`10.0.0.0/8`) |
+
