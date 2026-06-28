@@ -28,6 +28,13 @@ vm_admin_username = "azureuser"
 vm_os_disk_type   = "Standard_LRS"
 create_public_ip  = true
 
+vm_image = {
+  publisher = "Canonical"
+  offer     = "0001-com-ubuntu-server-jammy"
+  sku       = "22_04-lts-gen2"
+  version   = "latest"
+}
+
 kv_soft_delete_days = 7
 kv_purge_protection = false
 kv_purge_on_destroy = true
